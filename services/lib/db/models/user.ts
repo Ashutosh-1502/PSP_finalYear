@@ -1,0 +1,130 @@
+import mongoose from "mongoose";
+import { STATUS, USER_TYPE } from "@/utils/enums/enums";
+
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
+export interface IUser {
+  _id: mongoose.Types.ObjectId;
+  email: string;
+  password: string;
+  name: {
+    first: string;
+    last: string;
+  };
+  get: (path: string) => any;
+  set: (path: string, value: any) => any;
+  profile: any;
+  firstName: string;
+  roles: USER_TYPE;
+  token: string;
+  phone?: string;
+  companyRef?: mongoose.Types.ObjectId;
+  status: STATUS;
+  lastActivity?: number;
+  fullName: string;
+  isAdmin: boolean;
+}
+
+export interface IUserDocument extends Omit<Document, "images">, IUser {
+  createdAt: Date;
+  updatedAt: Date;
+  images?: string[];
+}
+
+const UserSchema = new mongoose.Schema<IUserDocument>(
+  {
+    email: {
+      type: String,
+      required: function () {
+        return !this.phone;
+      },
+    },
+    name: {
+      first: {
+        type: String,
+        required: function () {
+          return !this.phone;
+        },
+      },
+      last: {
+        type: String,
+        required: function () {
+          return !this.phone;
+        },
+      },
+    },
+    phone: {
+      type: String,
+      required: function () {
+        return !this.email;
+      },
+    },
+    roles: {
+      type: String,
+      enum: Object.values(USER_TYPE),
+      default: USER_TYPE.ADMIN,
+    },
+    companyRef: {
+      type: ObjectId,
+      ref: "Company",
+      required: false,
+    },
+    status: {
+      type: String,
+      enum: Object.values(STATUS),
+      default: STATUS.ACTIVE,
+    },
+  },
+  {
+    timestamps: true,
+    toObject: {
+      virtuals: true,
+    },
+    toJSON: {
+      virtuals: true,
+    },
+  },
+);
+
+UserSchema.pre<IUser>("save", function (next: any): void {
+  const email = this.get("profile.email");
+  if (email) {
+    this.profile.email = this.profile.email.toLowerCase();
+  }
+
+  const firstName = this.firstName;
+  if (firstName) {
+    this.set("profile.name.first", firstName.trim());
+  }
+
+  const lastName = this.get("profile.name.last");
+  if (lastName) {
+    this.set("profile.name.last", lastName.trim());
+  }
+
+  if (!this.roles || this.roles.length === 0) {
+    this.roles = USER_TYPE.USER;
+  }
+
+  next();
+});
+
+UserSchema.virtual("fullName").get(function (): string {
+  return `${this.name.first} ${this.name.last}`;
+});
+
+UserSchema.virtual("isSuperAdmin").get(function (): boolean {
+  return this.roles.includes(USER_TYPE.SUPER_ADMIN);
+});
+
+UserSchema.virtual("isAdmin").get(function (): boolean {
+  return this.roles.includes(USER_TYPE.ADMIN);
+});
+
+UserSchema.index({
+  email: "text",
+  "name.first": "text",
+  "name.last": "text",
+});
+
+export const User = mongoose.model<IUserDocument>("User", UserSchema);

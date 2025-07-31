@@ -1,0 +1,59 @@
+# Database Configuration
+DB_PATH=xxxxx
+BACKUP_PATH=xxxxx
+LOCAL_DB_FILE=xxxxx
+
+# Server Configuration
+NODE_ENV=dev
+PORT=xxxxx
+CRON_PORT=xxxxx
+HOST=xxxxx
+FRONTEND_HOST=xxxxx
+FRONTEND_INVITE_URL=xxxxx
+JWT_SECRET=xxxxx
+ALLOWED_ORIGINS=http://localhost:3000
+
+# Request time-out (in milliseconds)
+REQUEST_TIMEOUT=60000
+
+# Number of test data
+NUM_TEST_DATA=10
+
+# Stripe Keys
+STRIPE_SECRET_KEY=xxxxx
+STRIPE_ACCOUNT_ID=xxxxx
+STRIPE_WEBHOOK_SECRET=xxxxx
+STRIPE_CONNECT_WEBHOOK_SECRET=xxxxx
+STRIPE_PAYMENT_WEBHOOK_SECRET=xxxxx
+
+# Sendgrid Keys
+SENDGRID_USER_EMAIL=xxxxx
+SENDGRID_TEST_EMAIL=xxxxx
+SENDGRID_API_KEY=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
+
+# Amazon S3 Keys
+S3_BUCKET_REGION=xxxxx
+S3_BUCKET_NAME=xxxxx
+S3_USER_KEY=xxxxx
+S3_USER_SECRET=xxxxx
+AWS_LOG_GROUP_NAME=xxxxx
+
+# Apple Client Keys
+APPLE_CLIENT_ID=xxxxx
+APPLE_CLIENT_ID_IOS=xxxxx
+
+# Twilio Keys
+TWILIO_NUMBER=xxxxx
+TWILIO_ACCOUNTSID=xxxxx
+TWILIO_AUTHTOKEN=xxxxx
+
+# Slack Webhook
+SLACK_WEBHOOK_FOR_LOGS=xxxxx
+
+# Get stream keys
+GET_STREAM_MESSAGING_KEY=xxxxx
+GET_STREAM_MESSAGING_SECRET=xxxxx
+
+# Supabase keys
+SUPABASE_URL=xxxxx
+SUPABASE_SERVICE_KEY=xxxxx
