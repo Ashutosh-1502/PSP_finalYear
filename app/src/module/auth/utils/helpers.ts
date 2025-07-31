@@ -1,5 +1,5 @@
 import { COOKIES, ROLES } from "@/types";
-import type { PopupConfig, CookiesDataType } from "@/module/auth/types";
+import type {CookiesDataType } from "@/module/auth/types";
 import Cookies from "js-cookie";
 import { routes } from "@/config/routes";
 
@@ -10,8 +10,6 @@ export const isPasswordValid = (password: string): boolean => {
 
 export function redirectUser(userType: string) {
 	switch (userType) {
-		case ROLES.SUPER_ADMIN:
-			return routes.superAdmin.dashboard;
 		case ROLES.ADMIN:
 			return routes.admin.dashboard;
 		case ROLES.USER:
@@ -48,24 +46,4 @@ export function getCookies() {
 	const isAdminPath = Cookies.get(COOKIES.IS_ADMIN_PATH);
 	console.log(userType, companyRef, isAdminPath, token);
 	return { userType, companyRef, isAdminPath, token };
-}
-
-// -------------------
-// auth pop-up helpers
-// -------------------
-export function createPopupWindow(url: string, config: PopupConfig) {
-	const { width, height, left, top } = config;
-	return window.open(
-		url,
-		"oauth-popup",
-		`width=${width},height=${height},top=${top},left=${left},popup=true,location=yes`
-	);
-}
-
-export function getPopupConfig(): PopupConfig {
-	const width = 500;
-	const height = 600;
-	const left = window.screenX + (window.outerWidth - width) / 2;
-	const top = window.screenY + (window.outerHeight - height) / 2;
-	return { width, height, left, top };
 }

@@ -1,19 +1,8 @@
-export type USER_TYPE = "USER" | "ADMIN" | "SUPER_ADMIN" | "SYSTEM";
+export type USER_TYPE = "USER" | "ADMIN";
 
 export interface SortConfigType {
 	key?: string;
 	direction?: string;
-}
-
-export interface AwsUrlResponse {
-	data: {
-		url: string;
-		keyFile: string;
-	};
-}
-
-export interface OAuthUserInterface {
-	accessToken: string;
 }
 
 export type SignUpApiResponseType = {
@@ -88,12 +77,6 @@ export enum ROLES {
 export enum STATUS {
 	ACTIVE = "ACTIVE",
 	INACTIVE = "INACTIVE",
-}
-
-export enum INVITED_USER_STATUS {
-	PENDING = "PENDING",
-	ACCEPTED = "ACCEPTED",
-	CANCELED = "CANCELED",
 }
 
 export enum COOKIES {

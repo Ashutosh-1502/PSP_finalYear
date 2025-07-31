@@ -1,7 +1,6 @@
 "use client";
 
 import { routes } from "@/config/routes";
-import { supabase } from "@/lib/services/supabase-client";
 import { useAuthAPI } from "@/module/auth/hooks/useAuth";
 import { clearCookies } from "@/module/auth/utils/helpers";
 import { useRouter } from "next/navigation";
@@ -17,7 +16,6 @@ export default function LogoutFooter() {
 	const handleSignOut = async () => {
 		try {
 			await useLogoutMutation.mutateAsync();
-			await supabase.auth.signOut();
 			console.log("problem point superbase logout footer 1");
 			clearCookies();
 			router.push(routes.signIn);

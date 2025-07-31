@@ -10,18 +10,14 @@ import type { AxiosError } from "axios";
 import type { NSignUpApiResponseType } from "@/types";
 import { useAuthAPI } from "@/module/auth/hooks/useAuth";
 import { isPasswordValid, setCookies, getCookies } from "@/module/auth/utils/helpers";
-import { useEffect } from "react";
 import { redirectUser } from "@/module/auth/utils/helpers";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 export default function SignUpForm() {
 	const router = useRouter();
-	const { useAcceptInvite, useGetEmailsFromTokenMutation } = useAuthAPI();
-	const { mutate: getEmailsFromToken } = useGetEmailsFromTokenMutation;
 	const { useRegisterMutation } = useAuthAPI();
 	const searchParams = useSearchParams();
 	const token = searchParams.get("inviteToken");
@@ -46,7 +42,7 @@ export default function SignUpForm() {
 	const [, setIsTokenExpiredError] = useState(false);
 
 	const isButtonDisabled =
-		!userData.name.first || !userData.name.last || !Object.values(userData).every(Boolean) || !isCheckboxChecked;
+		!userData.name.first || !userData.name.last || !Object.values(userData).every(Boolean);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -65,26 +61,6 @@ export default function SignUpForm() {
 			});
 		}
 	};
-
-	useEffect(() => {
-		if (token) {
-			getEmailsFromToken(
-				{ inviteToken: token },
-				{
-					onSuccess: (data) => {
-						setUserData((prevUserData) => ({
-							...prevUserData,
-							email: data.data,
-						}));
-					},
-					onError: () => {
-						setIsTokenExpiredError(true);
-						toast.error(<p>Your Token is expired. Kindly ask for resend the invitation again!</p>, { duration: 4000 });
-					},
-				}
-			);
-		}
-	}, [token, getEmailsFromToken]);
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -109,27 +85,6 @@ export default function SignUpForm() {
 		if (token) {
 			const updatedUserData = { ...userData, inviteToken: token };
 			setUserData(updatedUserData);
-			useAcceptInvite.mutate(updatedUserData, {
-				onSuccess: (data) => {
-					const {
-						user: { roles, companyRef },
-					} = data;
-					setCookies({ user: { roles, companyRef } });
-
-					toast.success(<p>Invited User Registration Successful!</p>, {
-						duration: 1000,
-					});
-
-					const redirectRoute = redirectUser(data.user.roles);
-					router.replace(redirectRoute);
-				},
-				onError: (err) => {
-					const axiosError = err as AxiosError<NSignUpApiResponseType>;
-					toast.error(<p>{axiosError?.response?.data?.message}</p>, {
-						duration: 2000,
-					});
-				},
-			});
 		} else {
 			useRegisterMutation.mutate(userData, {
 				onSuccess: (data) => {
@@ -174,7 +129,7 @@ export default function SignUpForm() {
 							name="first"
 							value={userData.name.first}
 							onChange={(e) => handleInputChange(e)}
-							className="[&>label>span]:font-medium, text-sm"
+							className="[&>label>span]:font-medium, text-sm shadow-none"
 						/>
 					</div>
 					<div className="space-y-2">
@@ -185,7 +140,7 @@ export default function SignUpForm() {
 							name="last"
 							value={userData.name.last}
 							onChange={(e) => handleInputChange(e)}
-							className="[&>label>span]:font-medium, text-sm"
+							className="[&>label>span]:font-medium, text-sm shadow-none"
 						/>
 					</div>
 					<div className="col-span-2 space-y-2">
@@ -197,7 +152,7 @@ export default function SignUpForm() {
 							value={userData.email}
 							disabled={Boolean(token)}
 							onChange={(e) => handleInputChange(e)}
-							className="[&>label>span]:font-medium, col-span-2 text-sm"
+							className="[&>label>span]:font-medium, col-span-2 text-sm shadow-none"
 						/>
 					</div>
 					<div className="space-y-2">
@@ -209,14 +164,14 @@ export default function SignUpForm() {
 								name="password"
 								value={userData.password}
 								onChange={(e) => handleInputChange(e)}
-								className="text-sm"
+								className="text-sm shadow-none"
 							/>
 							<Button
 								type="button"
 								variant="ghost"
 								size="icon"
 								onClick={handlePasswordVisibility}
-								className="absolute right-0.5 top-0.5"
+								className="absolute right-0.5 top-[1px]"
 							>
 								{showPassword ? <IoMdEyeOff /> : <IoMdEye />}
 							</Button>
@@ -231,14 +186,14 @@ export default function SignUpForm() {
 								name="confirmPassword"
 								value={userData.confirmPassword}
 								onChange={(e) => handleInputChange(e)}
-								className="text-sm"
+								className="text-sm shadow-none"
 							/>
 							<Button
 								type="button"
 								variant="ghost"
 								size="icon"
 								onClick={handleConfirmPasswordVisibility}
-								className="absolute right-0.5 top-0.5"
+								className="absolute right-0.5 top-[1px]"
 							>
 								{showConfirmPassword ? <IoMdEyeOff /> : <IoMdEye />}
 							</Button>

@@ -31,8 +31,6 @@ export function middleware(request: NextRequest) {
 	const Redirect = () => {
 		if (token) {
 			switch (userType) {
-				case ROLES.SUPER_ADMIN:
-					return NextResponse.redirect(new URL(routes.superAdmin.dashboard, request.url));
 				case ROLES.ADMIN:
 					return NextResponse.redirect(new URL(routes.admin.dashboard, request.url));
 				case ROLES.USER:
@@ -54,7 +52,6 @@ export function middleware(request: NextRequest) {
 
 	if (
 		// Redirect users to their designated dashboards if they attempt to access unauthorized routes.
-		(token && path.startsWith("/super-admin") && userType !== ROLES.SUPER_ADMIN) ||
 		(token && path.startsWith("/admin") && userType === ROLES.USER) ||
 		(token && path.startsWith("/system") && userType !== ROLES.SYSTEM)
 	) {
@@ -82,13 +79,8 @@ export const config = {
 		"/signup",
 		"/",
 		"/admin/:path*",
-		"/super-admin/:path*",
 		"/user/:path*",
-		"/system/:path*",
-		"/profile/other-components",
 		"/profile/products/:path*",
-		"/profile/profile-settings/:path*",
-		"/profile/subscriptions/:path*",
 		"/profile/teams",
 	],
 };

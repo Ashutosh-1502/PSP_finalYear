@@ -78,6 +78,7 @@ export default function SignInForm() {
 							name="email"
 							value={userData.email}
 							onChange={handleInputChange}
+							className="shadow-none"
 						/>
 					</div>
 
@@ -90,6 +91,7 @@ export default function SignInForm() {
 							name="password"
 							value={userData.password}
 							onChange={handleInputChange}
+							className="shadow-none"
 						/>
 						<Button
 							type="button"
@@ -106,12 +108,6 @@ export default function SignInForm() {
 							<Checkbox />
 							<span className="text-sm">Remember Me</span>
 						</div>
-						<Link
-							href={routes.forgotPassword}
-							className="h-auto p-0 text-sm font-semibold text-blue underline transition-colors hover:text-gray-900 hover:no-underline"
-						>
-							Forget Password?
-						</Link>
 					</div>
 
 					<Button className="w-full" type="submit" size="lg" disabled={isButtonDisabled}>
