@@ -53,6 +53,10 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
         },
       },
     },
+    password: {
+      type: String,
+      required: true,
+    },
     phone: {
       type: String,
       required: function () {
@@ -87,21 +91,6 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
 );
 
 UserSchema.pre<IUser>("save", function (next: any): void {
-  const email = this.get("profile.email");
-  if (email) {
-    this.profile.email = this.profile.email.toLowerCase();
-  }
-
-  const firstName = this.firstName;
-  if (firstName) {
-    this.set("profile.name.first", firstName.trim());
-  }
-
-  const lastName = this.get("profile.name.last");
-  if (lastName) {
-    this.set("profile.name.last", lastName.trim());
-  }
-
   if (!this.roles || this.roles.length === 0) {
     this.roles = USER_TYPE.USER;
   }
@@ -111,10 +100,6 @@ UserSchema.pre<IUser>("save", function (next: any): void {
 
 UserSchema.virtual("fullName").get(function (): string {
   return `${this.name.first} ${this.name.last}`;
-});
-
-UserSchema.virtual("isSuperAdmin").get(function (): boolean {
-  return this.roles.includes(USER_TYPE.SUPER_ADMIN);
 });
 
 UserSchema.virtual("isAdmin").get(function (): boolean {

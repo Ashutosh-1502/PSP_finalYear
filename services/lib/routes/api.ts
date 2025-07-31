@@ -11,4 +11,3 @@ api.use(middleware.jwtDecoder);
 
 api.use("/admin", new AdminRouter().router);
 api.use("/auth", new AuthRouter().router);
-// api.use("/user", new UserRouter().router);
