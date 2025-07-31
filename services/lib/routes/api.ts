@@ -2,15 +2,13 @@ import { Router } from "express";
 import { AdminRouter } from "@/routes/admin/admin";
 import { AuthRouter } from "@/routes/auth";
 import { Middleware } from "@/middleware/auth";
-import { UserRouter } from "@/routes/user";
-import { TestRouter } from "./test";
+// import { UserRouter } from "@/routes/user";
 
 const middleware = new Middleware();
 
 export const api = Router();
-api.use("/api/test", new TestRouter().router);
 api.use(middleware.jwtDecoder);
 
 api.use("/admin", new AdminRouter().router);
 api.use("/auth", new AuthRouter().router);
-api.use("/user", new UserRouter().router);
+// api.use("/user", new UserRouter().router);
