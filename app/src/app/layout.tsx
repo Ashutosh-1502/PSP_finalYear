@@ -4,6 +4,9 @@ import { Toaster } from "react-hot-toast";
 import cn from "@/lib/utils/class-names";
 import Provider from "@/components/providers/query-client-provider";
 import localFont from "next/font/local";
+import FullScreenLoader from "@/components/common/loader/fullScreenLoader";
+import { LoaderProvider } from "@/components/common/loader/loaderContext";
+import AnimationWrapper from "@/components/common/animationWrapper/animationWrapper";
 
 const avenirNext = localFont({ src: "../../public/fonts/AvenirNext-Regular.woff2", variable: "--font-avenir-next" });
 
@@ -22,8 +25,13 @@ export default function RootLayout({ children }: ChildProps) {
 		<html lang="en" className={cn(avenirNext.variable)}>
 			<body>
 				<Provider>
-					{children}
-					<Toaster />
+					<LoaderProvider>
+						<AnimationWrapper>
+						{children}
+						</AnimationWrapper>
+						<Toaster />
+						<FullScreenLoader />
+					</LoaderProvider>
 				</Provider>
 			</body>
 		</html>

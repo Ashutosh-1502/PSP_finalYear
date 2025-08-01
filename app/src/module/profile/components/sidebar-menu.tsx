@@ -1,7 +1,6 @@
 "use client";
 import cn from "@/lib/utils/class-names";
 import { ROLES, type USER_TYPE } from "@/types";
-import okee_logo from "@public/assets/svg/okee-logo.svg";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +13,8 @@ import { routes } from "@/config/routes";
 import { COOKIES } from "@/types";
 import { clearCookies } from "@/module/auth/utils/helpers";
 import LogoutFooter from "@/components/common/logout-footer/logout-footer";
+import Lottie from "lottie-react";
+import atom from "@public/assets/gif/atom.json";
 
 export const MenuItems: Record<USER_TYPE, MenuItem[]> = {
 	USER: [
@@ -54,11 +55,13 @@ export const MenuItems: Record<USER_TYPE, MenuItem[]> = {
 			name: "Section 3",
 			Icon: <Image src="/assets/svg/okee-rewards.svg" alt="okee-rewards" width={15} height={15} />,
 		},
-	]
+	],
 };
 
 const Navbar: React.FC<ChildProps> = ({ children }) => {
-	return <nav className="flex flex-col gap-5">{children}</nav>;
+	return <nav className="flex flex-col gap-5 pt-3">
+		{children}
+	</nav>;
 };
 
 const MenuLink: React.FC<LinksProps> = ({ className, menuItem, ...rest }) => {
@@ -80,7 +83,7 @@ const MenuLink: React.FC<LinksProps> = ({ className, menuItem, ...rest }) => {
 			href={menuItem.href}
 			className={cn(
 				"flex items-center gap-3 px-2 py-1 text-sm transition-colors",
-				isActive ? "font-semibold text-black" : "text-gray-600 hover:text-black",
+				isActive ? "font-semibold text-primary" : "text-primary hover:text-black",
 				className
 			)}
 			onClick={handleLogOut}
@@ -88,13 +91,13 @@ const MenuLink: React.FC<LinksProps> = ({ className, menuItem, ...rest }) => {
 		>
 			<div
 				className={cn(
-					"flex h-7 w-7 items-center justify-center rounded-md",
-					isActive ? "bg-white text-white" : "text-inherit bg-transparent"
+					"flex h-9 w-9 items-center justify-center rounded-md",
+					isActive ? "bg-black text-white" : "text-inherit bg-gray-100"
 				)}
 			>
 				{menuItem.Icon}
 			</div>
-			<span>{menuItem.name}</span>
+			<span className="text-lg text-secondary">{menuItem.name}</span>
 		</Link>
 	);
 };
@@ -115,15 +118,21 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ role, className }) => {
 	return (
 		<aside
 			className={cn(
-				"fixed bottom-0 start-0 z-50 h-full w-[250px] border-e-2 border-gray-100 bg-white dark:bg-gray-100/50 2xl:w-72",
+				"fixed bottom-0 start-0 z-50 h-full w-[280px] border-e-2 bg-white 2xl:w-72 bg-primary",
 				className
 			)}
 		>
-			<div className="sticky top-0 z-40 bg-gray-0/10 px-6 pb-5 pt-5 dark:bg-gray-100/5 2xl:px-8 2xl:pt-6">
-				<Link href={(redirectURL as string) || ""}>
-					<h1 className="text-3xl font-bold">PSP</h1>
+			<div className="sticky top-0 z-40 bg-gray-0/10 px-2 pb-5 pt-5 dark:bg-gray-100/5 2xl:px-6 2xl:pt-6">
+				<Link href={(redirectURL as string) || ""} className="block w-full">
+					<div className="flex w-full items-center">
+						<div className="relative aspect-[3/1.6] w-[70px] md:w-[80px] xl:w-[90px] 2xl:w-[100px]">
+							<Lottie animationData={atom} loop className="h-full" />
+						</div>
+						<h1 className="text-xl font-bold text-primary-foreground">Protein Structure</h1>
+					</div>
 				</Link>
 			</div>
+
 			<hr />
 			<div className="section-p6 sticky top-[80px] flex h-[calc(100vh-80px)] flex-col justify-between pb-5 pl-5 xl:w-[250px]">
 				<Navbar>{menuItems && menuItems.map((item) => <MenuLink menuItem={item} key={item.name} />)}</Navbar>

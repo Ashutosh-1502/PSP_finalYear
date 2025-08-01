@@ -17,7 +17,6 @@ export interface IUser {
   firstName: string;
   roles: USER_TYPE;
   token: string;
-  phone?: string;
   companyRef?: mongoose.Types.ObjectId;
   status: STATUS;
   lastActivity?: number;
@@ -35,33 +34,19 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
   {
     email: {
       type: String,
-      required: function () {
-        return !this.phone;
-      },
+      required: true,
     },
     name: {
       first: {
         type: String,
-        required: function () {
-          return !this.phone;
-        },
       },
       last: {
         type: String,
-        required: function () {
-          return !this.phone;
-        },
       },
     },
     password: {
       type: String,
       required: true,
-    },
-    phone: {
-      type: String,
-      required: function () {
-        return !this.email;
-      },
     },
     roles: {
       type: String,

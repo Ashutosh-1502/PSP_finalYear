@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { useLoader } from "@/components/common/loader/loaderContext";
 
 export default function SignInForm() {
 	const [userData, setUserData] = useState<UserLoginDataType>({
@@ -23,7 +24,7 @@ export default function SignInForm() {
 		password: "",
 	});
 	const [showPassword, setShowPassword] = useState(false);
-
+	const { showLoader, hideLoader } = useLoader();
 	const handlePasswordVisibility = () => setShowPassword(!showPassword);
 	const router = useRouter();
 	const { useLoginMutation } = useAuthAPI();
@@ -31,6 +32,7 @@ export default function SignInForm() {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		showLoader()
 		useLoginMutation.mutate(userData, {
 			onSuccess: (data) => {
 				const {
@@ -42,8 +44,10 @@ export default function SignInForm() {
 				});
 				const redirectRoute = redirectUser(data.user.roles);
 				router.replace(redirectRoute);
+				hideLoader()
 			},
 			onError: (error) => {
+				hideLoader()
 				const axiosError = error as AxiosError<LoginResponseType>;
 				if (axiosError.response && axiosError.response?.data && axiosError.response.data.message) {
 					toast.error(<p>{axiosError.response.data.message}</p>, {
@@ -78,7 +82,7 @@ export default function SignInForm() {
 							name="email"
 							value={userData.email}
 							onChange={handleInputChange}
-							className="shadow-none"
+							className="shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 						/>
 					</div>
 
@@ -91,14 +95,14 @@ export default function SignInForm() {
 							name="password"
 							value={userData.password}
 							onChange={handleInputChange}
-							className="shadow-none"
+							className="shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 						/>
 						<Button
 							type="button"
 							aria-label={showPassword ? "Hide password" : "Show password"}
 							onClick={handlePasswordVisibility}
-							variant="ghost"
-							className="bg-gray absolute right-0.5 top-5 text-muted-foreground hover:text-foreground"
+							variant="outline"
+							className="bg-primary absolute right-[1px] top-5 text-primary-foreground hover:text-primary"
 						>
 							{showPassword ? <IoMdEyeOff /> : <IoMdEye />}
 						</Button>
@@ -110,7 +114,7 @@ export default function SignInForm() {
 						</div>
 					</div>
 
-					<Button className="w-full" type="submit" size="lg" disabled={isButtonDisabled}>
+					<Button className="w-full text-primary-foreground border-[1px] border-primary-foreground" type="submit" size="lg" disabled={isButtonDisabled}>
 						<span>Sign in</span> <PiArrowRightBold className="ms-2 mt-0.5 h-5 w-5" />
 					</Button>
 				</div>

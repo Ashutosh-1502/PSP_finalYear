@@ -16,7 +16,6 @@ export default function LogoutFooter() {
 	const handleSignOut = async () => {
 		try {
 			await useLogoutMutation.mutateAsync();
-			console.log("problem point superbase logout footer 1");
 			clearCookies();
 			router.push(routes.signIn);
 			toast.success("Logged out successfully!", {
@@ -34,9 +33,14 @@ export default function LogoutFooter() {
 			{/* <Button onClick={() => void handleSignOut()}>Sign Out</Button> */}
 			<Label
 				onClick={() => void handleSignOut()}
-				className="bg-red-300 flex w-full cursor-pointer items-center justify-start gap-x-3 ps-6"
+				className="flex w-full cursor-pointer items-center justify-start gap-x-3 ps-6 text-xl pb-2 text-primary-foreground"
 			>
-				<Image src="/assets/svg/logout-icon.svg" alt="stripe-connect" width={15} height={15} />
+				<div
+								className=
+									"flex h-9 w-9 items-center justify-center rounded-md bg-gray-200"
+							>
+								<Image src="/assets/svg/logout-icon.svg" alt="stripe-connect" width={20} height={20} />
+							</div>
 				Logout
 			</Label>
 		</>

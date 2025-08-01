@@ -15,13 +15,14 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { useLoader } from "@/components/common/loader/loaderContext";
 
 export default function SignUpForm() {
 	const router = useRouter();
 	const { useRegisterMutation } = useAuthAPI();
 	const searchParams = useSearchParams();
 	const token = searchParams.get("inviteToken");
-
+	const { showLoader, hideLoader } = useLoader();
 	const [userData, setUserData] = useState({
 		name: {
 			first: "",
@@ -64,7 +65,6 @@ export default function SignUpForm() {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
 		if (userData.password !== userData.confirmPassword) {
 			toast.error(<p>Passwords do not match!</p>, {
 				duration: 2000,
@@ -81,7 +81,7 @@ export default function SignUpForm() {
 			);
 			return;
 		}
-
+		showLoader()
 		if (token) {
 			const updatedUserData = { ...userData, inviteToken: token };
 			setUserData(updatedUserData);
@@ -100,8 +100,10 @@ export default function SignUpForm() {
 					});
 					const redirectRoute = redirectUser(data.user.roles);
 					router.replace(redirectRoute);
+					hideLoader()
 				},
 				onError: (error) => {
+					hideLoader()
 					const axiosError = error as AxiosError<NSignUpApiResponseType>;
 					if (axiosError.response && axiosError.response?.data && axiosError.response.data.message) {
 						toast.error(<p>{axiosError.response.data.message}</p>, {
@@ -129,7 +131,7 @@ export default function SignUpForm() {
 							name="first"
 							value={userData.name.first}
 							onChange={(e) => handleInputChange(e)}
-							className="[&>label>span]:font-medium, text-sm shadow-none"
+							className="[&>label>span]:font-medium, text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 						/>
 					</div>
 					<div className="space-y-2">
@@ -140,7 +142,7 @@ export default function SignUpForm() {
 							name="last"
 							value={userData.name.last}
 							onChange={(e) => handleInputChange(e)}
-							className="[&>label>span]:font-medium, text-sm shadow-none"
+							className="[&>label>span]:font-medium, text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 						/>
 					</div>
 					<div className="col-span-2 space-y-2">
@@ -152,7 +154,7 @@ export default function SignUpForm() {
 							value={userData.email}
 							disabled={Boolean(token)}
 							onChange={(e) => handleInputChange(e)}
-							className="[&>label>span]:font-medium, col-span-2 text-sm shadow-none"
+							className="[&>label>span]:font-medium, col-span-2 text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 						/>
 					</div>
 					<div className="space-y-2">
@@ -164,7 +166,7 @@ export default function SignUpForm() {
 								name="password"
 								value={userData.password}
 								onChange={(e) => handleInputChange(e)}
-								className="text-sm shadow-none"
+								className="text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 							/>
 							<Button
 								type="button"
@@ -186,7 +188,7 @@ export default function SignUpForm() {
 								name="confirmPassword"
 								value={userData.confirmPassword}
 								onChange={(e) => handleInputChange(e)}
-								className="text-sm shadow-none"
+								className="text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 							/>
 							<Button
 								type="button"
@@ -199,7 +201,7 @@ export default function SignUpForm() {
 							</Button>
 						</div>
 					</div>
-					<Button size="lg" type="submit" className="col-span-2 mt-2" disabled={isButtonDisabled}>
+					<Button size="lg" type="submit" className="col-span-2 mt-2 border-[1px] border-primary-foreground" disabled={isButtonDisabled}>
 						<span>Get Started</span> <PiArrowRightBold className="ms-2 mt-0.5 h-5 w-5" />
 					</Button>
 				</div>
