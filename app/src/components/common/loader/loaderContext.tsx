@@ -10,8 +10,12 @@ type LoaderContextType = {
 };
 
 const LoaderContext = createContext<LoaderContextType>({
-  showLoader: () => {},
-  hideLoader: () => {},
+  showLoader: () => {
+    throw new Error("showLoader must be used within a LoaderProvider");
+  },
+  hideLoader: () => {
+    throw new Error("hideLoader must be used within a LoaderProvider");
+  },
   isVisible: false
 });
 
