@@ -81,6 +81,7 @@ export default function SignInForm() {
 							placeholder="Enter your email"
 							name="email"
 							value={userData.email}
+							autoComplete="off"
 							onChange={handleInputChange}
 							className="shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 						/>
@@ -94,6 +95,7 @@ export default function SignInForm() {
 							placeholder="Enter your password"
 							name="password"
 							value={userData.password}
+							autoComplete="off"
 							onChange={handleInputChange}
 							className="shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
 						/>
@@ -109,7 +111,7 @@ export default function SignInForm() {
 					</div>
 					<div className="flex items-center justify-between pb-2">
 						<div className="flex items-center gap-1">
-							<Checkbox />
+							<Checkbox className="bg-primary"/>
 							<span className="text-sm">Remember Me</span>
 						</div>
 					</div>
@@ -119,9 +121,9 @@ export default function SignInForm() {
 					</Button>
 				</div>
 			</form>
-			<p className="mt-6 text-center leading-loose text-gray-500 lg:mt-8 lg:text-start">
+			<p className="mt-6 text-center leading-loose text-primary-foreground lg:mt-8 lg:text-start">
 				Don’t have an account?{" "}
-				<Link href={routes.signUp} className="font-semibold text-gray-700 transition-colors hover:text-blue">
+				<Link href={routes.signUp} className="font-semibold text-primary-foreground transition-colors hover:text-blue">
 					Sign Up
 				</Link>
 			</p>

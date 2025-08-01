@@ -29,7 +29,7 @@ export default function AuthWrapperOne({
 					<div className="w-[90%] lg:py-7 lg:ps-3 lg:pt-[3rem] 2xl:w-[630px] 2xl:max-w-none 2xl:ps-20 2xl:pt-7">
 						<div className="mb-7 px-6 pt-3 text-center md:pt-0 lg:px-0 lg:text-start xl:mb-8 2xl:mb-10">
 							<Link href="/" className="mb-6 inline-flex xl:mb-8 h-[100px]">
-								<h1 className="text-5xl font-bold">
+								<h1 className="text-5xl font-bold text-primary-foreground">
 									<Typewriter
 										words={["Protein Structure Prediction"]}
 										loop={1}
@@ -42,10 +42,10 @@ export default function AuthWrapperOne({
 									/>
 								</h1>
 							</Link>
-							<h2 className="mb-5 text-[26px] leading-snug md:text-3xl md:!leading-normal lg:mb-7 lg:pe-16 lg:text-[28px] xl:text-3xl 2xl:pe-8 2xl:text-4xl">
+							<h2 className="mb-5 text-[26px] leading-snug md:text-3xl md:!leading-normal lg:mb-7 lg:pe-16 lg:text-[28px] xl:text-3xl 2xl:pe-8 2xl:text-4xl text-primary-foreground">
 								{title}
 							</h2>
-							<p className="leading-[1.85] text-gray-700 md:leading-loose lg:pe-8 2xl:pe-14">{description}</p>
+							<p className="leading-[1.85] text-gray-700 md:leading-loose lg:pe-8 2xl:pe-14 text-primary-foreground">{description}</p>
 						</div>
 
 						{children}

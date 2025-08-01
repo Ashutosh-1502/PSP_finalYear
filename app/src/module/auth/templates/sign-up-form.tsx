@@ -129,6 +129,7 @@ export default function SignUpForm() {
 							type="text"
 							placeholder="Enter your first name"
 							name="first"
+							autoComplete="off"
 							value={userData.name.first}
 							onChange={(e) => handleInputChange(e)}
 							className="[&>label>span]:font-medium, text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
@@ -140,6 +141,7 @@ export default function SignUpForm() {
 							type="text"
 							placeholder="Enter your last name"
 							name="last"
+							autoComplete="off"
 							value={userData.name.last}
 							onChange={(e) => handleInputChange(e)}
 							className="[&>label>span]:font-medium, text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
@@ -151,6 +153,7 @@ export default function SignUpForm() {
 							type="email"
 							placeholder="Enter your email"
 							name="email"
+							autoComplete="off"
 							value={userData.email}
 							disabled={Boolean(token)}
 							onChange={(e) => handleInputChange(e)}
@@ -164,6 +167,7 @@ export default function SignUpForm() {
 								type={showPassword ? "text" : "password"}
 								placeholder="Enter your password"
 								name="password"
+								autoComplete="off"
 								value={userData.password}
 								onChange={(e) => handleInputChange(e)}
 								className="text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"
@@ -186,6 +190,7 @@ export default function SignUpForm() {
 								type={showConfirmPassword ? "text" : "password"}
 								placeholder="Enter confirm password"
 								name="confirmPassword"
+								autoComplete="off"
 								value={userData.confirmPassword}
 								onChange={(e) => handleInputChange(e)}
 								className="text-sm shadow-none placeholder:text-primary-foreground placeholder:opacity-30"

@@ -18,7 +18,7 @@ export default function Layout({ children }: ChildProps) {
 				</Suspense>
 				<div className="flex justify-center w-full flex-col xl:ms-[290px] xl:w-[calc(100%-290px)] 2xl:ms-72 2xl:w-[calc(100%-300px)]">
 					<div className="flex flex-grow flex-col px-8 pb-6 pt-2 @container md:px-5 lg:px-6 lg:pb-8 3xl:px-12 3xl:pt-4 4xl:px-14 4xl:pb-9">
-						<Header title="Admin"/>
+						<Header title="Welcome"/>
 						{children}
 					</div>
 				</div>
