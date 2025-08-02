@@ -51,7 +51,7 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
     roles: {
       type: String,
       enum: Object.values(USER_TYPE),
-      default: USER_TYPE.ADMIN,
+      default: USER_TYPE.USER,
     },
     companyRef: {
       type: ObjectId,
@@ -79,7 +79,6 @@ UserSchema.pre<IUser>("save", function (next: any): void {
   if (!this.roles || this.roles.length === 0) {
     this.roles = USER_TYPE.USER;
   }
-
   next();
 });
 
