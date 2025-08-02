@@ -1,3 +1,7 @@
+import AdminDashboard from "@/module/dashboard/templates/dashboard"
+
 export default function DashboardPage() {
-	return <h1></h1>;
+	return (
+		<AdminDashboard/>
+	);
 }

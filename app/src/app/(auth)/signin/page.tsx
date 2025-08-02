@@ -24,7 +24,7 @@ export default function SignIn() {
 			bannerDescription=""
 			isSocialLoginActive={true}
 			pageImage={
-				<div className="relative mx-auto aspect-[4/2] w-[600px] md:w-[720px] xl:w-[800px] 2xl:w-[900px]">
+				<div className="flex justify-center aspect-[4/4] w-full">
 					<Lottie animationData={structure} loop className="h-full w-full" />
 				</div>
 			}
