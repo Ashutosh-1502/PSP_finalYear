@@ -1,3 +1,5 @@
+import { UserDetails } from "@/module/dashboard/types";
+
 export type USER_TYPE = "USER" | "ADMIN";
 
 export interface SortConfigType {
@@ -64,6 +66,22 @@ export type PaginationType = {
 	totalDocs?: number;
 };
 
+export type Notification = {
+	_id?: string;
+	title: string;
+	subject: string;
+	notificationBody?: string;
+	notificationStatus: NOTIFICATION;
+	createdAt: string
+};
+
+export type Sequence = {
+	_id: string;
+    sequence: string;
+    sequenceDetails: string;
+	createdAt: string
+}
+
 // ------
 // Enums
 // ------
@@ -77,11 +95,20 @@ export enum ROLES {
 export enum STATUS {
 	ACTIVE = "ACTIVE",
 	INACTIVE = "INACTIVE",
+	BLOCKED = "BLOCKED",
+	UNBLOCKED = "UNBLOCKED"
 }
 
 export enum COOKIES {
-	TOKEN = "token", // this is set from backend and its mainly used for authentication.
+	TOKEN = "token",
 	USER_TYPE = "userType",
 	COMPANY_REF = "companyRef",
 	IS_ADMIN_PATH = "isAdminPath",
+}
+
+export enum NOTIFICATION {
+	DELETED = "DELETED",
+	READ = "READ",
+	UNREAD = "UNREAD",
+	SEND = "SEND"
 }

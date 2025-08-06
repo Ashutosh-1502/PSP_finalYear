@@ -1,12 +1,12 @@
-// context/LoaderContext.tsx
 'use client';
 
 import { createContext, useContext, useState } from 'react';
 
 type LoaderContextType = {
-  showLoader: () => void;
+  showLoader: (customLoader?: React.ReactNode) => void;
   hideLoader: () => void;
   isVisible: boolean;
+  loaderComponent: React.ReactNode | null;
 };
 
 const LoaderContext = createContext<LoaderContextType>({
@@ -16,17 +16,30 @@ const LoaderContext = createContext<LoaderContextType>({
   hideLoader: () => {
     throw new Error("hideLoader must be used within a LoaderProvider");
   },
-  isVisible: false
+  isVisible: false,
+  loaderComponent: null
 });
 
 export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [loaderComponent, setLoaderComponent] = useState<React.ReactNode | null>(null);
 
-  const showLoader = () => setIsVisible(true);
-  const hideLoader = () => setIsVisible(false);
+  const showLoader = (customLoader?: React.ReactNode) => {
+    if (customLoader) {
+      setLoaderComponent(customLoader);
+    } else {
+      setLoaderComponent(null);
+    }
+    setIsVisible(true);
+  };
+
+  const hideLoader = () => {
+    setIsVisible(false);
+    setLoaderComponent(null);
+  };
 
   return (
-    <LoaderContext.Provider value={{ showLoader, hideLoader, isVisible }}>
+    <LoaderContext.Provider value={{ showLoader, hideLoader, isVisible, loaderComponent }}>
       {children}
     </LoaderContext.Provider>
   );

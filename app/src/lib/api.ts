@@ -33,6 +33,7 @@ apiClient.interceptors.response.use(
 		// Check for 401 status and token-related errors
 		if (status === 401 && errorMessage.includes("invalid token")) {
 			console.log("api.ys file called");
+			console.log(status, errorMessage);
 			clearCookies();
 
 			// Redirect to signin page

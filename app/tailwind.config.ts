@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
-
+/** @type {import('tailwindcss').Config} */
 export default {
 	content: [
 		// './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -21,7 +21,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				inter: ["var(--font-inter)"],
+				montserrat: ["var(--font-montserrat)"],
 				lexend: ["var(--font-lexend)"],
 				avenirNext: ["var(--font-avenirNext)"],
 			},

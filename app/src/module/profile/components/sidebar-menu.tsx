@@ -5,8 +5,8 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { BsBoxSeam } from "react-icons/bs";
-import { RxDashboard } from "react-icons/rx";
+import { RxDashboard, RxMagnifyingGlass } from "react-icons/rx";
+import { MdEmail } from "react-icons/md";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { LinksProps, MenuItem, SidebarMenuProps } from "@/module/profile/types";
 import { routes } from "@/config/routes";
@@ -15,45 +15,42 @@ import { clearCookies } from "@/module/auth/utils/helpers";
 import LogoutFooter from "@/components/common/logout-footer/logout-footer";
 import Lottie from "lottie-react";
 import atom from "@public/assets/gif/atom.json";
+import { History, Mic } from "lucide-react";
+
 
 export const MenuItems: Record<USER_TYPE, MenuItem[]> = {
 	USER: [
 		{
-			href: routes.user.dashboard,
-			name: "Dashboard",
-			Icon: <RxDashboard />,
+			href: routes.proteinSearch,
+			name: "Protein Search",
+			Icon: <RxMagnifyingGlass className="text-primary-foreground w-5 h-5"/>,
+		},
+		{
+			href: routes.user.searchHistory,
+			name: "Search History",
+			Icon: <History className="text-primary-foreground w-5 h-5"/>,
 		},
 		{
 			href: "",
-			name: "Section 2",
-			Icon: <BsBoxSeam />,
-		},
-		{
-			href: "",
-			name: "Section 3",
-			Icon: <Image src="/assets/svg/connect.svg" alt="stripe-connect" width={15} height={15} />,
-		},
-		{
-			href: "",
-			name: "Section 4",
-			Icon: <Image src="/assets/svg/payment.svg" alt="stripe-payment" width={15} height={15} />,
+			name: "Announcement",
+			Icon: <Mic className="text-primary-foreground w-5 h-5" />,
 		},
 	],
 	ADMIN: [
 		{
 			href: routes.admin.dashboard,
 			name: "Dashboard",
-			Icon: <RxDashboard />,
+			Icon: <RxDashboard className="text-primary-foreground w-5 h-5" />,
+		},
+		{
+			href: routes.proteinSearch,
+			name: "Protein Search",
+			Icon: <RxMagnifyingGlass className="text-primary-foreground w-5 h-5"/>,
 		},
 		{
 			href: "",
-			name: "Users",
-			Icon: <Image src="/assets/svg/user-icon.svg" alt="stripe-payment" width={15} height={15} />,
-		},
-		{
-			href: "",
-			name: "Section 3",
-			Icon: <Image src="/assets/svg/okee-rewards.svg" alt="okee-rewards" width={15} height={15} />,
+			name: "Email Invite",
+			Icon: <MdEmail className="text-primary-foreground w-5 h-5"/>
 		},
 	],
 };
@@ -92,12 +89,12 @@ const MenuLink: React.FC<LinksProps> = ({ className, menuItem, ...rest }) => {
 			<div
 				className={cn(
 					"flex h-9 w-9 items-center justify-center rounded-md",
-					isActive ? "bg-black text-white" : "text-inherit bg-gray-100"
+					isActive ? "bg-gray-300 text-primary" : "text-inherit"
 				)}
 			>
 				{menuItem.Icon}
 			</div>
-			<span className="text-lg text-secondary">{menuItem.name}</span>
+			<span className="text-md text-secondary">{menuItem.name}</span>
 		</Link>
 	);
 };
@@ -128,7 +125,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ role, className }) => {
 						<div className="relative aspect-[3/1.6] w-[70px] md:w-[80px] xl:w-[90px] 2xl:w-[100px]">
 							<Lottie animationData={atom} loop className="h-full" />
 						</div>
-						<h1 className="text-xl font-bold text-primary-foreground">Protein Structure</h1>
+						<h1 className="text-lg font-bold text-primary-foreground">Protein Structure</h1>
 					</div>
 				</Link>
 			</div>

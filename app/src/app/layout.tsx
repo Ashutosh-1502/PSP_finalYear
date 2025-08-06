@@ -7,6 +7,12 @@ import localFont from "next/font/local";
 import FullScreenLoader from "@/components/common/loader/fullScreenLoader";
 import { LoaderProvider } from "@/components/common/loader/loaderContext";
 import AnimationWrapper from "@/components/common/animationWrapper/animationWrapper";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 const avenirNext = localFont({ src: "../../public/fonts/AvenirNext-Regular.woff2", variable: "--font-avenir-next" });
 
@@ -22,7 +28,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: ChildProps) {
 	return (
-		<html lang="en" className={cn(avenirNext.variable)}>
+		<html lang="en" className={montserrat.variable}>
 			<body>
 				<Provider>
 					<LoaderProvider>

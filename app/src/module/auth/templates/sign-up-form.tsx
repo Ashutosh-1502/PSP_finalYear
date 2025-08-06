@@ -92,9 +92,7 @@ export default function SignUpForm() {
 						user: { roles, companyRef },
 						token,
 					} = data;
-					console.log(token);
 					setCookies({ user: { roles, companyRef }, token });
-					console.log(getCookies());
 					toast.success(<p>Registration Successful!</p>, {
 						duration: 2000,
 					});

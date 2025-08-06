@@ -33,13 +33,13 @@ export default function LogoutFooter() {
 			{/* <Button onClick={() => void handleSignOut()}>Sign Out</Button> */}
 			<Label
 				onClick={() => void handleSignOut()}
-				className="flex w-full cursor-pointer items-center justify-start gap-x-3 ps-6 text-xl pb-2 text-primary-foreground"
+				className="flex w-full cursor-pointer items-center justify-start gap-x-3 ps-6 text-lg pb-2 text-primary-foreground"
 			>
 				<div
 								className=
-									"flex h-9 w-9 items-center justify-center rounded-md bg-gray-200"
+									"flex h-6 w-6 items-center justify-center rounded-md bg-gray-200"
 							>
-								<Image src="/assets/svg/logout-icon.svg" alt="stripe-connect" width={20} height={20} />
+								<Image src="/assets/svg/logout-icon.svg" alt="stripe-connect" width={13} height={13} />
 							</div>
 				Logout
 			</Label>

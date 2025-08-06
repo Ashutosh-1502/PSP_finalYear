@@ -187,7 +187,7 @@
 
 	/* base style */
 	html {
-		@apply h-full antialiased;
+		@apply h-full font-montserrat antialiased;
 	}
 
 	#player {
@@ -253,7 +253,7 @@
 	q {
 		@apply text-lg;
 	}
-  .dark {
+	.dark {
 		--background: 0 0% 3.9%;
 		--foreground: 0 0% 98%;
 		--card: 0 0% 3.9%;
@@ -324,6 +324,10 @@
 			0px 1px 0 rgba(0, 0, 0, 0.02),
 			0px 2px 6px rgba(0, 0, 0, 0.05);
 	}
+
+	.ql-editor {
+		@apply h-40 overflow-y-auto;
+	}
 }
 
 /* ................................................... */
@@ -349,10 +353,28 @@ select:-webkit-autofill:focus {
 }
 
 @layer base {
-  * {
-    @apply border-border;
+	* {
+		@apply border-border;
 	}
-  body {
-    @apply bg-background text-foreground;
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+@layer base {
+	:root {
+		--chart-1: oklch(0.646 0.222 41.116);
+		--chart-2: oklch(0.6 0.118 184.704);
+		--chart-3: oklch(0.398 0.07 227.392);
+		--chart-4: oklch(0.828 0.189 84.429);
+		--chart-5: oklch(0.769 0.188 70.08);
+	}
+
+	.dark {
+		--chart-1: oklch(0.488 0.243 264.376);
+		--chart-2: oklch(0.696 0.17 162.48);
+		--chart-3: oklch(0.769 0.188 70.08);
+		--chart-4: oklch(0.627 0.265 303.9);
+		--chart-5: oklch(0.645 0.246 16.439);
 	}
 }

@@ -1,4 +1,5 @@
 import type { USER_TYPE } from "@/types";
+import type { UserDetails } from "@/module/dashboard/types";
 import * as z from "zod";
 
 export type ChangePasswordApiResponseType = {
@@ -14,7 +15,7 @@ export type ChangePasswordDataType = {
 export type GetUserDataResponseType = {
 	success: boolean;
 	message: string;
-	data: UserDataType;
+	data: UserDetails;
 	error: object;
 };
 

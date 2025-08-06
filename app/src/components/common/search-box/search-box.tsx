@@ -4,7 +4,7 @@ import { PiMagnifyingGlassBold } from "react-icons/pi";
 
 const SearchBox: React.FC<SearchBoxProps> = ({ value, onChange, ...props }) => {
 	return (
-		<div className="flex w-[35%] items-center rounded-md border border-input bg-gray-100 px-3">
+		<div className="flex w-[100%] items-center rounded-md border border-input bg-gray-100 px-3">
 			<span className="mr-4 text-gray-700">
 				<PiMagnifyingGlassBold className="h-[18px] w-[18px]" />
 			</span>
