@@ -48,7 +48,6 @@ const NotificationSchema = new mongoose.Schema<INotificationDocument>(
           userRef: {
             type: ObjectId,
             ref: "Notification",
-            required: true,
           },
           seenAt: {
             type: Date,
