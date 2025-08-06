@@ -5,7 +5,8 @@ export const routes = {
 		dashboard: "/admin/dashboard",
 	},
 	user: {
-		searchHistory: "/user/search-history"
+		searchHistory: "/user/search-history",
+		announcement: "/user/announcement"
 	},
 	proteinSearch: "/protein-structure-prediction"
 };

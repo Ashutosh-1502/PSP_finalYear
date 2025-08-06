@@ -16,6 +16,15 @@ export type GetAllDashboardResponseType = {
 	error: object;
 };
 
+export type GetAllNotificationType = {
+	success: boolean;
+	message: string;
+	data: {
+		notifications: Notification[]
+	};
+	error: object;
+}
+
 export type UserDetails = {
 	_id: string;
 	name: {

@@ -72,6 +72,11 @@ export type Notification = {
 	subject: string;
 	notificationBody?: string;
 	notificationStatus: NOTIFICATION;
+	notificationSeenStatus: {
+		userRef: string,
+		seenAt: string,
+		isSeen: boolean
+	}[],
 	createdAt: string
 };
 

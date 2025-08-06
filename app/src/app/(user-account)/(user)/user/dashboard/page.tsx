@@ -1,3 +1,7 @@
+import ProteinViewerPage from "@/module/sequences/templates/sequence";
+
 export default function DashboardPage() {
-	return <div>This is User dashboard</div>;
+	return (
+		<ProteinViewerPage/>
+	);
 }

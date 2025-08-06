@@ -1,3 +1,9 @@
+import ProteinViewerPage from "@/module/sequences/templates/sequence";
+
 export default function ProteinSearch() {
-	return <>This is Protein structure prediction page</>;
+	return (
+		<>
+			<ProteinViewerPage />
+		</>
+	);
 }

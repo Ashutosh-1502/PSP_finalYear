@@ -31,7 +31,7 @@ export const MenuItems: Record<USER_TYPE, MenuItem[]> = {
 			Icon: <History className="text-primary-foreground w-5 h-5"/>,
 		},
 		{
-			href: "",
+			href: routes.user.announcement,
 			name: "Announcement",
 			Icon: <Mic className="text-primary-foreground w-5 h-5" />,
 		},
