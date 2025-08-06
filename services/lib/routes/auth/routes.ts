@@ -6,6 +6,8 @@ import {getJWTToken } from "@/utils/helpers/commonHelper";
 import { Validator } from "node-input-validator";
 import {
   COOKIE_NAME,
+  STATUS,
+  USER_TYPE,
 } from "@/utils/enums/enums";
 import { User } from "@/db/models/user";
 import { cookieOptions } from "@/utils/configuration/cookieOptions";
@@ -46,6 +48,8 @@ export class AuthRoutes {
         });
       }
 
+      const adminRef = await User.findOne({roles: USER_TYPE.ADMIN});
+
       // Hash the password before saving
       const hashedPassword = await bcrypt.hash(password, AuthRoutes.SALT_ROUNDS);
 
@@ -53,6 +57,7 @@ export class AuthRoutes {
         email,
         name,
         password: hashedPassword,   // store hashed password
+        companyRef: adminRef._id
       });
 
       const token = getJWTToken(user);
@@ -98,6 +103,12 @@ export class AuthRoutes {
       if (!user) {
         return ErrorResponse(res, status.CONFLICT, {
           message: "Your account doesnt exists please signup",
+        });
+      }
+
+      if (user.status === STATUS.BLOCKED){
+        return ErrorResponse(res, status.FORBIDDEN, {
+          message: "Your are Blocked from using this platform",
         });
       }
 

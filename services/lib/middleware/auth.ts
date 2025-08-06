@@ -63,16 +63,13 @@ export class Middleware {
 
       const user = await User.findOne({
         $and: [{ _id: decoded.data._id }],
-      }).populate("companyRef");
+      })
 
       if (!user) {
         return this.sendForbiddenAccessResponse(res);
       }
 
-      if (
-        user.status === STATUS.INACTIVE ||
-        (user?.companyRef as any)?.companyStatus === STATUS.INACTIVE
-      ) {
+      if (user.status === STATUS.INACTIVE) {
         res.clearCookie(COOKIE_NAME.TOKEN, cookieOptions);
         return ErrorResponse(res, httpStatus.UNAUTHORIZED, {
           message: "Invalid Token",

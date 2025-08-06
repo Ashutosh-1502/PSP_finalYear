@@ -13,15 +13,13 @@ export interface IUser {
   };
   get: (path: string) => any;
   set: (path: string, value: any) => any;
-  profile: any;
-  firstName: string;
   roles: USER_TYPE;
-  token: string;
-  companyRef?: mongoose.Types.ObjectId;
   status: STATUS;
-  lastActivity?: number;
   fullName: string;
   isAdmin: boolean;
+  companyRef?: mongoose.Types.ObjectId;
+  sequences?: mongoose.Types.ObjectId[];
+  lastActivity?: Date;
 }
 
 export interface IUserDocument extends Omit<Document, "images">, IUser {
@@ -53,15 +51,24 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
       enum: Object.values(USER_TYPE),
       default: USER_TYPE.USER,
     },
+    status: {
+      type: String,
+      enum: Object.values(STATUS),
+      default: STATUS.UNBLOCKED,
+    },
     companyRef: {
       type: ObjectId,
       ref: "Company",
       required: false,
     },
-    status: {
-      type: String,
-      enum: Object.values(STATUS),
-      default: STATUS.ACTIVE,
+    sequences: {
+      type: [ObjectId],
+      ref: "Sequence",
+      default: [],
+      required: false
+    },
+     lastActivity: {
+      type: Date,
     },
   },
   {

@@ -8,6 +8,15 @@ export enum STATUS {
   ACTIVE = "ACTIVE",
   INACTIVE = "INACTIVE",
   DELETED = "DELETED",
+  BLOCKED = "BLOCK",
+  UNBLOCKED = "UNBLOCKED"
+}
+
+export enum NOTIFICATION {
+  DELETED = "DELETED",
+  READ = "READ",
+  UNREAD = "UNREAD",
+  SEND = "SEND",
 }
 
 export enum USER_TYPE {
